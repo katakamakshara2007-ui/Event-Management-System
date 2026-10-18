@@ -12,10 +12,20 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:5173")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*");
+                registry.addMapping("/**")
+                        .allowedOriginPatterns(
+                                "https://event-management-system-xi-rust.vercel.app",
+                                "https://*.vercel.app",
+                                "https://event-management-system-is5v.onrender.com",
+                                "https://*.onrender.com",
+                                "http://localhost:*",
+                                "http://127.0.0.1:*"
+                        )
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
+                        .allowedHeaders("*")
+                        .exposedHeaders("*")
+                        .allowCredentials(true)
+                        .maxAge(3600);
             }
         };
     }
